@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Point {
+struct Point: CustomStringConvertible {
 	var x: Int
 	var y: Int
 
@@ -23,6 +23,23 @@ struct Point {
 	func abs() -> Int {
 		return Swift.abs(self.x) + Swift.abs(self.y)
 	}
+
+    public var angle: Float { atan2(Float(x), Float(y)) }
+
+    public var description: String { "Point(\(x), \(y))" }
+}
+
+func -(lhs: Point, rhs: Point) -> Point {
+    Point(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+}
+
+func +(lhs: Point, rhs: Point) -> Point {
+    Point(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
+}
+
+func +=(lhs: inout Point, rhs: Point) {
+    lhs.x += rhs.x
+    lhs.y += rhs.y
 }
 
 extension Point: Hashable {
