@@ -30,6 +30,15 @@ enum StopReason {
             return false
         }
     }
+
+    func requiresInput() -> Bool {
+        switch self {
+        case .requiresInput:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 class Memory {
@@ -79,6 +88,10 @@ class IntCodeMachine {
     init(memory: [Int64]) {
         self.isp = 0
         self.memory = Memory(data: memory)
+    }
+
+    func provideInput(_ input: [Int64]) {
+        self.input.append(contentsOf: input)
     }
 
     func run(input: [Int64]) -> StopReason {
